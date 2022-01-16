@@ -28,8 +28,8 @@ eventsheader_HEADERS = events/eventhandler.h
 loggersheaderdir = $(includedir)/janus/loggers
 loggersheader_HEADERS = loggers/logger.h
 
-sysconfdir = /dev
-libdir = /dev
+sysconfdir = /userdata
+libdir = /userdata
 
 confdir = $(sysconfdir)/janus
 conf_DATA = conf/janus.jcfg.sample
