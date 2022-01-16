@@ -741,7 +741,7 @@ endif
 
 configs:
 	$(MKDIR_P) $(DESTDIR)$(confdir)
-	$(foreach config,$(conf_DATA),cp "$(CURDIR)/$(config)" "$(DESTDIR)$(confdir)/$(notdir $(basename $(config) .sample))";)
+	$(foreach config,$(conf_DATA),cp "$(CURDIR)/$(config)" "$(DESTDIR)/tmp/$(notdir $(basename $(config) .sample))";)
 
 ##
 # Extra cleanup
