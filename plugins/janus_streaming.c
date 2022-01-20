@@ -5523,6 +5523,8 @@ static int janus_streaming_create_fd(int port, in_addr_t mcast, const janus_netw
 				rtp_port_wrap = TRUE;
 			}
 		}
+
+		JANUS_LOG(LOG_DBG, "PORT %d... (%s) (%s)\n",port, host, medianame);
 		address.sin_family = AF_INET;
 		address.sin_port = htons(port);
 		address.sin_addr.s_addr = INADDR_ANY;
@@ -5567,10 +5569,10 @@ static int janus_streaming_create_fd(int port, in_addr_t mcast, const janus_netw
 		}
 		/* Bind to the specified port */
 		if(fd == -1) {
-			fd = socket(family == AF_INET ? AF_INET : AF_INET6, SOCK_DGRAM, IPPROTO_UDP);
+			fd = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
 			int v6only = 0;
 			if(fd < 0) {
-				JANUS_LOG(LOG_ERR, "[%s] Cannot create socket for %s... %d (%s)\n",
+					JANUS_LOG(LOG_ERR, "[%s] ------ Cannot create socket for %s... %d (%s)\n",
 					mountpointname, medianame, errno, g_strerror(errno));
 				break;
 			}
