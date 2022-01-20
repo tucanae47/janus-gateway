@@ -5524,7 +5524,7 @@ static int janus_streaming_create_fd(int port, in_addr_t mcast, const janus_netw
 			}
 		}
 
-		JANUS_LOG(LOG_DBG, "PORT %d... (%s) (%s)\n",port, host, medianame);
+		JANUS_LOG(LOG_DBG, "PORT %d... (%s) (%s) --- FAMILY = %d\n",port, host, medianame, family);
 		address.sin_family = AF_INET;
 		address.sin_port = htons(port);
 		address.sin_addr.s_addr = INADDR_ANY;
@@ -5576,11 +5576,11 @@ static int janus_streaming_create_fd(int port, in_addr_t mcast, const janus_netw
 					mountpointname, medianame, errno, g_strerror(errno));
 				break;
 			}
-			if(family != AF_INET && setsockopt(fd, IPPROTO_IPV6, IPV6_V6ONLY, &v6only, sizeof(v6only)) != 0) {
-				JANUS_LOG(LOG_ERR, "[%s] setsockopt on socket failed for %s... %d (%s)\n",
-					mountpointname, medianame, errno, g_strerror(errno));
-				break;
-			}
+			// if(family != AF_INET && setsockopt(fd, IPPROTO_IPV6, IPV6_V6ONLY, &v6only, sizeof(v6only)) != 0) {
+			// 	JANUS_LOG(LOG_ERR, "[%s] setsockopt on socket failed for %s... %d (%s)\n",
+			// 		mountpointname, medianame, errno, g_strerror(errno));
+			// 	break;
+			// }
 		}
 		size_t addrlen = (family == AF_INET ? sizeof(address) : sizeof(address6));
 		if(bind(fd, (family == AF_INET ? (struct sockaddr *)&address : (struct sockaddr *)&address6), addrlen) < 0) {
